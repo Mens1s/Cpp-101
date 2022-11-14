@@ -21,7 +21,7 @@ class Vehicle{
         const bool operator ==(const Vehicle  &nVehicle);
         const bool operator !=(const Vehicle &nVehicle);
     // subscript
-        const string operator [](int index);
+        const string operator [](int index); 
     // functionCall
         const bool operator ()(int num);
     // preincrement
