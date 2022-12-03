@@ -15,6 +15,24 @@ using namespace std;
     // Debugging, in computer programming and engineering, is a multistep process that involves identifying a problem, isolating the source of the problem
     // and then either correcting the problem or determining a way to work around it.
     
+// void Tetromino::rotateLeft(){
+//     for(int i = 0; i < 2; i++) {
+//         for(int j = i; j < 3 - i; j++) {
+//             char temp = Tetromino::shape[i][j];
+//             Tetromino::shape[i][j] = Tetromino::shape[3-j][i];
+//             Tetromino::shape[3-j][i] = Tetromino::shape[3-i][3-j];
+//             Tetromino::shape[3-i][3-j] = Tetromino::shape[j][3-i];
+//             Tetromino::shape[j][3-i] = temp;
+//         }
+//     }
+// }    
+
+                            // CONST
+//  int getValue() const { return value;} // eğer value = 100 yaparsak kod patlar
+//  void foo(const int y) {cout << y;} // y= 6 yaparsak error
+//  const int foo(int y) { y--; return y;} // const value returnluyor ama pointer olmadığı için ya da referans sıkıtnı değil ama olurda pointer veya referans olursa
+//                                         // atanan var da const olmalı ve değişiklik yapmamalı
+
 int ekok(int a, int b){
     int temp = a;
     while(a % temp != 0 && b % temp != 0 )temp ++;
@@ -35,7 +53,7 @@ class Rational{
             doSimple();
         };
 
-        friend Rational operator +(const Rational &a,const Rational &b);
+        friend const Rational operator +(const Rational &a,const Rational &b);
         friend Rational operator -(const Rational &a,const Rational &b);
         friend Rational operator -(Rational &a);
         friend Rational operator /(const Rational &a,const Rational &b);
@@ -68,7 +86,7 @@ void Rational::doSimple(){
     up /= max;
 }
 
-Rational operator +(const Rational &a, const Rational &b){
+Rational const operator +(const Rational &a, const Rational &b){
     int down = a.down;
     int up = a.up + b.up;
     if(b.down != a.down){
