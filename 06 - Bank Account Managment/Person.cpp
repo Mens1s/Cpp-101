@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -6,9 +7,11 @@ using namespace std;
 class Person
 {
     private:
+        static int id;
+
+        int sex;
         string name;
         string surname;
-        int sex;
         string phoneNum;
         
     public:
@@ -16,23 +19,26 @@ class Person
         Person(string name, string surname, int sex, string phoneNum);
         ~Person();
 
+        int getSex(){return sex;};
         string getName(){return name;};
         string getSurname(){return surname;};
-        int getSex(){return sex;};
         string getPhoneNum(){return phoneNum;};
 
- 
+        int getID(){return id;};
 };
 
 Person::Person(string name, string surname, int sex, string phoneNum)
 {
+    cout << "my id : " << id << endl;
     this->name = name;
     this->surname = surname;
     this->sex = sex;
     this->phoneNum = phoneNum;
+    id++;
 }
 
 Person::~Person()
 {   
     delete this;
 }
+

@@ -1,21 +1,36 @@
-#include "Customer.cpp"
+#include "Worker.cpp"
+
+int Person::id = 1;
+
 
 int main(){
-    Enterprise c("Mens1s","5459739699");
+    Individual c("1","5459739699");
+    Individual cd("2","5459739699");
+    Individual cf("3","5459739699");
+    Individual cg("4","5459739699");
+    Individual ch("5","5459739699");
+    Individual cj("6","5459739699");
+    Officer officer("Ahmet", "Yiğit",1, "5459739699","director",93);
+    // cout << c << endl << endl;
+    // c.addMoney(9800, 65);
+    // cout << c<< endl << endl;
 
-    cout << c;
-    c.addMoney(9800, 65);
-    c.takeLoan(1000);
-    c.takeLoan(2000);
-    c.takeLoan(3000);
-    c.takeLoan(4000);
-    c.takeLoan(5000);
-    c.takeLoan(6000);
-    c.takeLoan(7000);
-    c.takeLoan(8000);
-    c.takeLoan(9000);
-    c.takeLoan(9999);
+    officer.giveLoan(c,10000);
+ 
+    officer.giveLoan(c,20000);
 
-    cout << c;
+    officer.giveLoan(c,30000);
+    officer.giveLoan(c,40000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    // c.takeLoan(10000);
+    cout <<  endl << endl;
+    cout << c<< endl << endl;
     return 0;
 }
