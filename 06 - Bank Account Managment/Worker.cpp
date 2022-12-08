@@ -1,7 +1,11 @@
 #include "Customer.cpp"
 
+class Director;
+
 class Worker : public Person{
     private:
+        static vector<Worker> workers;
+
         int sallaryDollarPart;  
         int sallaryCentPart;
 
@@ -18,11 +22,15 @@ class Worker : public Person{
 
         void setWorkedDays(int day, bool isWorked);
         int * getWorkedDays(){return workedDays;};
+        int getWorkerDaysCount();
 
         void setMonthlyPayment(int mounth, int sallaryDollarPart, int sallaryCentPart);
         double * getMonthlyPayment(){return monthlyPayment;};
 
         double getSalary();
+        virtual void giveLoan(Individual &customer, int amountDollarPart);
+
+        static vector<Worker> getWorkers(){return Worker::workers;};
 };
 
 Worker::Worker(string name, string surname, int sex, string phoneNum, string title) : Person(name, surname, sex, phoneNum)
@@ -37,6 +45,8 @@ Worker::Worker(string name, string surname, int sex, string phoneNum, string tit
 
     for(int i = 0; i < 12; i++) monthlyPayment[i] = 0;
     for(int i = 0; i < 39; i++) workedDays[i] = 0;
+
+    workers.push_back(*this);
 }
 
 Worker::~Worker(){
@@ -48,6 +58,15 @@ void Worker::setWorkedDays(int day, bool isWorked){
     if(day > 30 || day < 1) throw out_of_range ("OUT OF RANGE FROM DAY");;
     if(isWorked) workedDays[day] = 1;
     else workedDays[day] = 0;
+}
+
+int Worker::getWorkerDaysCount(){
+    int a = 0;
+    for(int day = 0; day < 30 ;day++)
+        if(workedDays[day] == 1)
+            a++;
+    
+    return a;
 }
 
 void Worker::setMonthlyPayment(int mount, int sallaryDollarPart, int sallaryCentPart){
@@ -69,8 +88,10 @@ class Officer : public Worker{
 
     public:
         Officer(string name, string surname, int sex, string phoneNum, string title, int level);
+
+        void getAccessFromDirector(Director &director, Individual &customer, int amountDollarPart);
         void giveLoan(Individual &customer, int amountDollarPart);
-        // void takeMoneyFromCustomer(int id, int amountDollarPart);
+        void takeMoneyFromCustomer(Individual &customer, int amountDollarPart);
         
 };
 
@@ -84,14 +105,30 @@ void Officer::giveLoan(Individual &customer, int amountDollarPart){
         customer.takeLoan(amountDollarPart);
         cout <<" ASAGIDAKI KULLANICIYA KREDI ISLEMLERI BASARILI BIR SEKILDE TAMAMLANDI \n";
         cout << customer;    
-    }  
+    }else
+        cout << "GET HELP FROM DIRECTOR!\n";
+    
+    
 }
 
-// class Director : public Worker{
-//     private:
-//         int level;
+void Officer::getAccessFromDirector(Director &director, Individual &customer, int amountDollarPart){
+    director.giveLoan(customer, amountDollarPart);
+}   
 
-//     public:
-//         void giveLoan(int id, int amountDollarPart, int amountCentPart, int installment);
-        
-// };
+void Officer::takeMoneyFromCustomer( Individual &customer, int amountDollarPart){
+    customer.takeMoney(amountDollarPart, 0); // can be minus
+}   
+
+class Director : public Worker{
+    private:
+        int level;
+
+    public:
+        void giveLoan(Individual &customer, int amountDollarPart);
+};
+
+void Director::giveLoan(Individual &customer, int amountDollarPart){
+    customer.takeLoan(amountDollarPart);
+    cout <<" ASAGIDAKI KULLANICIYA KREDI ISLEMLERI BASARILI BIR SEKILDE TAMAMLANDI \n";
+    cout << customer;  
+}

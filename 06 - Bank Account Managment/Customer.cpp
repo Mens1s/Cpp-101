@@ -2,6 +2,8 @@
 
 class Customer : public Person{
     private:
+        static vector<Customer> customers;
+
         int accountDolars;
         int accountCents;
 
@@ -29,6 +31,8 @@ class Customer : public Person{
         void addMoney(int dollarAmount, int centsAmount);
         bool takeMoney(int dollarAmount, int centsAmount);
 
+        static vector<Customer> getCustomers(){return Customer::customers;};
+
 };
 
 
@@ -38,6 +42,7 @@ Customer::Customer(string name, string surname, int sex, string phoneNum) : Pers
     loanSize = 0;
     accountDolars = 0;
     accountCents = 0;
+    customers.push_back(*this);
 }
 
 void Customer::increaseSize(){
