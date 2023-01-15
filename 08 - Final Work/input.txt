@@ -1,0 +1,2 @@
+input txt from my
+namespace at text 
